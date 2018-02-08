@@ -1,4 +1,4 @@
-// Basic 13 -- Tim Knab -- Week 1
+// Basic 13 -- Tim K -- Week 1
 
 
 
