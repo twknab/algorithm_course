@@ -1,6 +1,5 @@
 // Basic 13 Assignment -- Tim K
 // Total time: 20 minutes
-// Round 2
 
 // 1.
 function print1To255() {
