@@ -1,6 +1,10 @@
 // Basic 13 Assignment -- Tim K
 // Total time: 20 minutes
 
+/*
+Note: Because this was a speed-based challenge, I didn't go too in depth in testing (could be improved), nor do my functions check if the data being handed to them is of the right data-type, etc. These could be modified in the future in the ways afore mentioned. My goal here was just to move quickly and as cleanly as possible.
+*/
+
 // 1.
 function print1To255() {
   for (let i = 1; i <= 255; i++) {
