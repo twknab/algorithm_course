@@ -179,11 +179,11 @@ zeroOutNegativeNumbers([3,6,-9,-10]); // test
 
 // 13.
 function shiftArrayValues(arr) {
-  for (let i = arr.length-1; i >= 0; i--) { // loop through array in reverse
-    if (i == 0) { // if index value is 0
-      arr[i] = 0; // set first value to 0
+  for (let i = 0; i < arr.length; i++) { // loop through array
+    if (i == (arr.length-1)) { // if index value is last in array
+      arr[i] = 0; // set value to 0
     } else {
-      arr[i] = arr[i - 1]; // set value to its left neighbor
+      arr[i] = arr[i + 1]; // set value to its right neighbor
     };
   };
   console.log(arr);
