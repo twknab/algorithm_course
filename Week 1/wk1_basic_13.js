@@ -1,4 +1,7 @@
 // Basic 13 -- Tim K -- Week 1
+// Total time: 43 minutes (over 3 min per problem)
+// Notes: wasted too much time dictacting question into assgn.
+// See round 2 for faster time.
 
 
 
