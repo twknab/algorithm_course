@@ -1,241 +1,191 @@
-// Basic 13 -- Tim K -- Week 1
-// Total time: 43 minutes (over 3 min per problem)
-// Notes: wasted too much time dictacting question into assgn.
-// See round 2 for faster time.
+// Basic 13 Assignment -- Tim K
+// Total time: 20 minutes
 
-
-
-// 1. Print 1 to 255:
-function print_1_to_255() {
-  // Loop from 1 to 255 and console.log the value:
+// 1.
+function print1To255() {
   for (let i = 1; i <= 255; i++) {
     console.log(i);
   }
 };
 
-// Test function:
-print_1_to_255();
+print1To255(); // Test function
 
 
 
-// 2. Print integers from 0 to 255 and with each integer, print sum thus far:
-function print_ints_and_sum(){
-  // Create empty var to hold sum value:
+// 2.
+function printIntsAndSum0To255() {
   let sum = 0;
-  // Loop from 0 to 255, add integer to sum and print integer and sum thus far:
-  for (let i = 0; i<= 255; i++) {
+  for (let i = 0; i <= 255; i++) {
     sum += i;
-    console.log(`Integer: ${i} Sum: ${sum}`);
-  };
+    console.log(`${i}, ${sum}`);
+  }
 };
 
-// Test function:
-print_ints_and_sum();
+printIntsAndSum0To255(); // test function
 
 
 
-// 3. Given an array, find and print its largest element:
-function find_and_print_max(arr) {
-  /*
-  Note: we are assuming that we are given an array of at least 1 element.
-  We could add more strict checks into this algorithm, for but simplicty and time we'll assume that we are given our proper cases:
-  */
-
-  // Set max to first element in the array:
-  let max = arr[0];
-  // Loop through array, and if any element is greater than max, set to as max:
-  for (var i = 0; i < arr.length; i++) {
-    if (i > max) {
-      max = arr[i];
-    }
+// 3.
+function findAndPrintMax(arr) {
+  let max = arr[0]; // set max to first arr value
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > max) { // if array val greater than max
+      max = arr[i] // set as new max
+    };
   };
   console.log(max);
   return max;
 };
 
-// Test our function:
-find_and_print_max([1,2,3,4,5,6,-3,-4,-3,1001,-400]);
+findAndPrintMax([-100,1002,4,5]); // test function
 
 
 
-// 4. Create an array with all the odd integers between 1 an 255 (inclusive):
-function array_with_odds(){
-  // Will hold all odd integers:
+// 4.
+function arrayWithOdds() {
   let arr = [];
-  // Loop from 1 to 255, find odds numbers and add to array. Log and return array:
   for (let i = 1; i <= 255; i++) {
-    // If number is odd:
-    if (i % 2 == 1) {
-      // Push to array:
-      arr.push(i);
-    };
-  };
-  // Log and return:
-  console.log(arr);
-  return arr;
-};
-
-// Test function:
-array_with_odds();
-
-
-
-// 5. Given an array and a value of Y, count and print the number of array values greater than Y:
-function greater_than_y(arr, y) {
-  // Create an empty counter for vals > y:
-  let count = 0;
-  // Loop through array and compare to y, if greater increase counter:
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] > y) {
-      count += 1;
-    };
-  };
-  // Log and return count:
-  console.log(count);
-  return count;
-};
-
-// Test function:
-greater_than_y([1,2,3,4,5], 0);
-
-
-
-// 6. Max, Min, Avg: Given an array, print the max, min and average values of that array:
-function max_min_avg(arr) {
-  // Set min and max to first array item:
-  let max = arr[0];
-  let min = arr[0];
-  // Create sum variable for help calculating avg:
-  let sum = 0;
-
-  // Loop through array and compare values to max and min:
-  for (let i = 0; i < arr.length; i++) {
-    // Increase sum:
-    sum += arr[i];
-    // If value greater than max set as new max:
-    if (arr[i] > max) {
-      max = arr[i];
-    } else if (arr[i] < min) {
-      min = arr[i];
-    };
-  };
-
-  // Print max, min and avg:
-  console.log(`Max: ${max} | Min: ${min} | Average: ${sum / (arr.length)}`)
-};
-
-// Test our function:
-max_min_avg([1,2,3,4,-100,100]);
-
-
-
-// 7. Given an array of numbers, replace any negative values with the string "Dojo":
-function swap_string_for_negative_values(arr){
-  // Loop through array looking for negative values:
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] < 0) {
-      arr[i] = "Dojo";
+    if (i % 2 == 1) { // if i is odd:
+      arr.push(i); // push to arr
     };
   };
   console.log(arr);
   return arr;
 };
 
-// Test our function:
-swap_string_for_negative_values([1,2,-100,3,4,-1000]);
+arrayWithOdds(); // test function
 
 
 
-// 8. Print all odd integers from 1 to 255:
-function print_odds() {
-  for (let i = 0; i <= 255; i++) {
-    if (i % 2 == 1) {
-      console.log(i);
+// 5.
+function greaterThanY(arr, y) {
+  let gtrThanYCount = 0;
+  for (let i = 0; i < arr.length; i++) { // loop through arr
+    if (arr[i] > y) { // if value greater than y
+      gtrThanYCount += 1; // increase counter by 1
+    };
+  };
+  console.log(gtrThanYCount);
+  return gtrThanYCount;
+};
+
+greaterThanY([3,6,9,10], 1); // test function
+
+
+
+// 6.
+function maxMinAverage(arr) {
+  let max = arr[0], // set max to first array value
+  min = arr[0], // set min to first array value
+  sum = 0; // set sum to 0
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > max) { // if bigger than max
+      max = arr[i] // set as new max
+    } else if (arr[i] < min) { // if smaller than min
+      min = arr[i]; // set as new min
     }
+    sum += arr[i]; // add value to sum
+  };
+  let avg = (sum / arr.length); // get average
+  console.log(`${max}, ${min}, ${avg}`);
+  return (`${max}, ${min}, ${avg}`);
+};
+
+maxMinAverage([10,20,30,40,50]); // test function
+
+
+
+// 7.
+function swapStringForNegativeValues(arr) {
+  for (let i = 0; i < arr.length; i++) { // loop through array values
+    if (arr[i] < 0) { // if value less than 0
+      arr[i] = "Dojo" // set as string 'Dojo'
+    };
+  };
+  console.log(arr);
+  return arr;
+};
+
+swapStringForNegativeValues([100,-10,900,-5,200]); // test
+
+
+
+// 8.
+function printOdds1To255() {
+  for (let i = 1; i <= 255; i++) { // loop through numbers 1 - 255
+    if (i % 2 == 1) { // if number is odd
+      console.log(i); // print it
+    };
   };
 };
 
-// Test:
-print_odds();
+printOdds1To255(); // test
 
 
 
-// 9. Iterate through a given array, printing each value:
-function iterate_and_print(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    console.log(arr[i]);
+// 9.
+function iterateAndPrintArray(arr) {
+  for (let i = 0; i < arr.length; i++) { // loop through array
+    console.log(arr[i]); // log value
   };
+  return arr;
 };
 
-// Test:
-iterate_and_print([1,2,3,4,5]);
+iterateAndPrintArray([3,5,6,1,0,4,2]); // test
 
 
 
-// 10. Analyze an array's values and print the average:
-function get_and_print_average(arr) {
-  // Create empty sum var for help w/ average:
+// 10.
+function getAndPrintAverage(arr) {
   let sum = 0;
-  // Loop through array and add to sum:
-  for (let i = 0; i < arr.length; i++) {
-    sum += arr[i];
-  }
-  console.log(sum / arr.length);
+  for (let i = 0; i < arr.length; i ++) { // loop through array
+    sum += arr[i]; // add value to sum
+  };
+  console.log(sum / arr.length); // print average
   return (sum / arr.length);
 };
 
-// Test:
-get_and_print_average([1,2,3,4,5,6,7,8]);
+getAndPrintAverage([3,6,9,10]); // test
 
 
 
-// 11. Square each value in a given array, return that same array with changed values:
-function square_the_values(arr) {
-  // Loop through array and square each value:
-  for (let i = 0; i < arr.length; i++) {
-    arr[i] = Math.pow(arr[i], 2); // Math.pow(value, multBy)
-  }
+// 11.
+function squareValues(arr) {
+  for (let i = 0; i < arr.length; i++) { // loop through array
+    arr[i] = Math.pow(arr[i], 2); // square the value
+  };
   console.log(arr);
-  return (arr);
+  return arr;
 };
 
-// Test our function:
-square_the_values([2,4,6,8]);
+squareValues([2,4,6]); // test
 
 
 
-// 12. Return the given array, after setting any negative values to zero:
-function zero_out_neg_numb(arr){
-  // Loop through array and check if any values are negative:
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] < 0) {
-      arr[i] = 0;
+// 12.
+function zeroOutNegativeNumbers(arr) {
+  for (let i = 0; i < arr.length; i++) { // loop through array
+    if (arr[i] < 0) { // if value less than 0
+      arr[i] = 0; // set array value to 0
     };
   };
   console.log(arr);
   return arr;
 };
 
-// Test function:
-zero_out_neg_numb([1,-2,3,-4,5,-6]);
+zeroOutNegativeNumbers([3,6,-9,-10]); // test
 
 
 
-// 13. Given an array, move all values forward by one index, dropping the first and leaving a 0 value at the end:
-function shift_array_values(arr) {
-  // Loop backwards through array:
-  for (let i = arr.length-1; i >= 0; i--) {
-    console.log(i);
-    // If i = 0 (first index), set this to 0:
-    if (i == 0) {
-      arr[i] = 0;
-    } else { // Otherwise replace array item with that of its left neighbor:
-      arr[i] = arr[i - 1];
-    };
+// 13.
+function shiftArrayValues(arr) {
+  for (let i = 0; i < arr.length-1; i++) { // loop through array
+    arr[i] = arr[i + 1];
   };
+  val = arr[arr.length-1]; // store last value
+  arr[arr.length-1] = 0; // set last value to 0
   console.log(arr);
-  return arr;
+  return val; // returns popped value
 };
 
-// Test function:
-shift_array_values([1,2,3,4,10]);
+shiftArrayValues([1,2,3,4,5,6,7,8]); // test
