@@ -145,6 +145,8 @@ secondLargest([-5, 2, 43, 4, 100]); // edge case
 secondLargest([-1, -2, 43, -4, -5]);
 
 
+
+
 // 8. - Optional
 function nthLargest(arr, n) {
   // This function I was having trouble determining how to do.
