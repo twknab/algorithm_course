@@ -204,3 +204,46 @@ nthLargest([1,2,3,4,5], 4);
 nthLargest([12,13,-1,2,5,6,7], 1);
 nthLargest([-1000,-23,11,22,54,62,50043], 5);
 nthLargest([-1000,-23,11,22,54,62,50043], 100); // edge
+
+
+// For fun, let's isolate the sort function we wrote manually above and see how to sort from Greatest to Least, and from Least to Greatest:
+
+// Sort Greatest to Least:
+function sortGreatest(arr) {
+  // manually sort array from largest to smallest:
+  // loop forwards through array:
+  for (let i = 0; i < arr.length; i++) {
+    // loop through the array, moving forwards:
+    // note in loop below we set `j = i` so we move on after finding greatest value:
+    for (let j = i; j < arr.length; j++) {
+      if (arr[i] < arr[j]) {
+        let temp = arr[i]; // store original value for swapping
+        arr[i] = arr[j]; // set original value position to greater value
+        arr[j] = temp; // set greater value position to original value
+      };
+    };
+  };
+  return arr;
+};
+
+console.log(sortGreatest([10,9,1000,12,-11,3]));
+
+
+// Sort Least to Greatest:
+function sortLeast(arr) {
+  // manually sort array from smallest to largest:
+  // loop through array backwards:
+  for (let i = arr.length-1; i >= 0; i--) {
+    // loop again through the array, moving backwards:
+    for (let j = i; j >= 0; j--) {
+      if (arr[i] < arr[j]) {
+        let temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+      };
+    };
+  };
+  return arr;
+};
+
+console.log(sortLeast([10,9,1000,12,-11,3]));
