@@ -20,6 +20,18 @@ function pushFront(arr, val) {
 
 pushFront([2, 3, 4, 5], 1); // test
 
+// Here's another way you can write this without having to manually alter the length of the array (this one is more elegant):
+function pushFrontAgain(arr, val) {
+  // loop through array backwards
+  for (let i = arr.length; i > 0; i--) {
+    arr[i] = arr[i - 1]; // shift values to right
+  };
+  arr[0] = val; // set first array item to val
+  console.log(arr);
+  return arr; // return array
+};
+
+pushFrontAgain([6, 7, 8, 9], 5); // test
 
 
 
@@ -57,6 +69,14 @@ function insertAt(arr, idx, val) {
 };
 
 insertAt([1, 2, 4, 5], 2, 3);
+
+// Here's a similar way to do it again, just not actually modifying the array.length directly:
+function insertAt(arr,index,val){
+  for(var i = arr.length; i > index; i--){
+    arr[i] = arr[i - 1]; // will create new array value at end of array on first iteration of for loop
+  };
+  arr[index] = val;
+};
 
 
 
@@ -149,11 +169,38 @@ secondLargest([-1, -2, 43, -4, -5]);
 
 // 8. - Optional
 function nthLargest(arr, n) {
-  // This function I was having trouble determining how to do.
-  // I did find a few examples online using the .sort() method,
-  // but our goal here is to NOT use this. I also found a few solutions
-  // without .sort(), but they were difficult to follow or poorly
-  // commented. Have to study this algorithm a bit more to think out a solution.
+  // make sure nth largest is not outside of array length:
+  if (n > arr.length) {
+    console.log("n is out of range; please choose a smaller number.")
+    return null;
+  };
+
+  // manually sort array:
+  // start by looping through array at first value:
+  for (let i = 0; i < arr.length; i++) {
+    // loop again through the array, comparing each value to arr[i]:
+    // note: in the for loop below, we set our counter `j = i`.
+    // this is so that our second for loop advances with our first for loop, and that we move on from our last analyzed value, which we already found to be the largest
+    // if we for example, set `j = 0`, we'd get some undesired behavior.
+    // setting `j = i` ensures that once we detect the highest value, we leave that index alone and move forwards through the array.
+    // sorry for the poor explanation but if you play around you'll see
+    for (let j = i; j < arr.length; j++) {
+      if (arr[i] < arr[j]) {
+        let temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+      };
+    };
+  };
+
+  console.log(arr);
+  console.log(arr[n-1]);
+
+  // return nth-largest item:
+  return arr[n-1];
 };
 
-nthLargest([ 43, 56, 23, 89, 88, 90, 99, 652], 4);
+nthLargest([1,2,3,4,5], 4);
+nthLargest([12,13,-1,2,5,6,7], 1);
+nthLargest([-1000,-23,11,22,54,62,50043], 5);
+nthLargest([-1000,-23,11,22,54,62,50043], 100); // edge
