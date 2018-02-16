@@ -79,12 +79,59 @@ console.log(arrConcatAgain(['a', 'b', 'c'], [1, 2, 3]));
 Remember iFactorial from last chapter? Take that implementation and use a time-space tradeoff to accelerate the average running time. Recall that iFactorial(num) returns the product of positive integers from 1 to the given num. For example: fact(1) = 1, fact(2) = 2, fact(3) = 6. For these purposes, fact(0) = 1.
 */
 
-function fasterFactorial() {
+function fasterFactorial(number) {
 
+  // If number is 0 or 1:
+  if (number == 0 || number == 1) {
+    return 1;
+  };
 
-//  I have to come back to this and think more. Stay tuned for V2
+  // If number is less than 0:
+  if (number < 0) {
+    return null;
+  };
+
+  // We loop from our number downwards, multiplying it until we reach 1:
+  let total = 1;
+  while (number > 0) {
+    total *= number;
+    number--;
+  }
+
+  console.log(total);
+  return total;
 
 };
+console.log("--- FASTER FACTORIAL ---");
+fasterFactorial(6);
+
+function anotherFactorial(number) {
+  // if (typeof(number) != )
+  console.log(typeof(number));
+
+  // Check for corner cases:
+  if (typeof(number) != 'number') {
+    return null;
+  };
+
+  // Check for edge cases:
+  if (number == 0 || number == 1) {
+    return 1;
+  } else if (number < 0) {
+    return null;
+  };
+
+  // This time we loop from 1 forwards to the end of our number:
+  let total = 1;
+  for (let i = 1; i <= number; i++) {
+    total *= i;
+  }
+  console.log(total);
+  return total;
+};
+
+console.log("--- ANOTHER FACTORIAL ---");
+anotherFactorial(6);
 
 
 
