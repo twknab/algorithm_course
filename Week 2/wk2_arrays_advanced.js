@@ -106,10 +106,8 @@ console.log("--- FASTER FACTORIAL ---");
 fasterFactorial(6);
 
 function anotherFactorial(number) {
-  // if (typeof(number) != )
-  console.log(typeof(number));
 
-  // Check for corner cases:
+  // Do an input check for data type:
   if (typeof(number) != 'number') {
     return null;
   };
