@@ -40,7 +40,7 @@ function arrConcat(arr1, arr2) {
   }
 };
 
-// Test our function
+// Test:
 console.log("--- CONCAT ---");
 console.log(arrConcat([1,2,3], [4,5,6]));
 console.log(arrConcat([3], [])); // edge
@@ -60,7 +60,8 @@ function arrConcatAgain(arr1, arr2) {
   }
   return arr3;
 };
-// test
+
+// Test
 console.log("--- CONCAT AGAIN ---");
 console.log(arrConcatAgain(['a', 'b', 'c'], [1, 2, 3]));
 
@@ -116,6 +117,7 @@ function shuffle(arr) {
  return arr;
 };
 
+// Test:
 console.log("<--- SHUFFLE --->");
 console.log("--- RESULT 1 ---");
 shuffle([1,2,3,4,5]);
@@ -123,7 +125,6 @@ console.log("--- RESULT 1 ---");
 shuffle([10,12,14,16,18,20,22,24,26,28,30,32]);
 
 // Here's another approach:
-
 function shuffleAgain(arr) {
   for (let i = 0; i < arr.length; i++) {
     let rand = Math.floor(Math.random()*arr.length);
@@ -136,6 +137,7 @@ function shuffleAgain(arr) {
   return arr;
 };
 
+// Test:
 console.log("<--- SHUFFLE AGAIN --->");
 console.log("--- RESULT 1 ---");
 shuffleAgain([1,2,3,4,5]);
@@ -184,6 +186,7 @@ function shufflingOneMoreTime(arr) {
   return arr;
 };
 
+// Test:
 console.log("<--- SHUFFLING ONE MORE TIME --->");
 console.log("--- RESULT 1 ---");
 shufflingOneMoreTime([1,2,3,4,5]);
