@@ -1,4 +1,4 @@
-// Wk 2 - Advanced Arrays - Tim K
+// Wk 2 - Arrays Intermediate 1 - Tim K
 
 
 
