@@ -232,7 +232,6 @@ reverseString("mit");
 reverseString("Amet anim aliquip nostrud exercitation anim elit excepteur veniam labore aliquip. Id nisi consectetur occaecat sunt esse et cillum officia ipsum ex. Eiusmod culpa ad magna voluptate veniam sint eiusmod duis velit cupidatat sit.");
 // => .tis tatadipuc tilev siud domsuie tnis mainev etatpulov angam da apluc domsuiE .xe muspi aiciffo mullic te esse tnus taceacco rutetcesnoc isin dI .piuqila erobal mainev ruetpecxe tile mina noitaticrexe durtson piuqila mina temA
 
-// => tim
 
 // Let's try another way though, not using an array (no storage) -- any difference in result?
 // Note: This actually seems faster than the function above. Most likely because the function above has an exta for loop. 
