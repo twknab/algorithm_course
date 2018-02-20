@@ -271,7 +271,7 @@ reverseStringAgain("wheat");
 
 
 
-// Remove Blanks
+// 6. Remove Blanks
 // Create a JavaScript function that given a string, returns the integer made from the string’s digits.
 // (Keeping it simple just to solve it quick)
 function removeBlanks(string) {
@@ -293,7 +293,7 @@ removeBlanks("This is just a test, I repeat, just a test.");
 
 
 
-// Get String 
+// 7. Get String 
 // Create a JavaScript function that given a string, returns the integer made from the string’s digits.
 function getStringDigits(string) {
   let numberString = "";
@@ -325,7 +325,7 @@ getStringDigits("0s1a3y5w7h9a2t4?6!8?0");
 
 
 
-// Acronyms
+// 8. Acronyms
 // Create a function that, given a string, returns the string’s acronym (first letters only, capitalized). 
 function acronyms(string) {
   if (typeof(string) !== "string") {
@@ -386,3 +386,9 @@ acronyms("T");
 // Numbers
 acronyms(13);
 // => null
+
+acronyms(undefined);
+// => null
+
+acronyms("National Aeronautics Space Administration");
+// => NASA
