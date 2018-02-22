@@ -328,6 +328,7 @@ getStringDigits("0s1a3y5w7h9a2t4?6!8?0");
 // 8. Acronyms
 // Create a function that, given a string, returns the string’s acronym (first letters only, capitalized). 
 function acronyms(string) {
+  // Note: This seems uncomfortably like a long solution, but alas, this was the best my mind could achieve at this moment. Perhaps I can come back and look again or compare with other submissions, to find a better or cleaner strategy.
   if (typeof(string) !== "string") {
     console.log("Must be a string.");
     return null;
@@ -338,24 +339,25 @@ function acronyms(string) {
     // create variable to hold our acronym:
     let acronym = "";
     // loop through string:
-    for (let i = 0; i < string.length; i++) {
-      // if first index value, immedietely capitalize and add to acronym:
-      if (i === 0) {
-        acronym += string[i].toUpperCase();
-      }
-      // if dash is detected, add it to acronym:
-      if (string[i] === "-") {
-        acronym += string[i];
-      }
-      // if space is detected, grab the letter next to it:
-      if (string[i] === " ") {
-        // if the letter next to a space exists, but is *not* a dash or a space, add it to acronym:
-        if (string[i + 1] && string[i + 1] !== "-" && string[i + 1] !== " ") {
-          // use upperCase() method to make it capitalized:
-          acronym += string[i + 1].toUpperCase();
-        } else { 
-          continue; // continue looping otherwise (and add nothing to acronym)
+    for (let i = 0; i < string.length; i++) {      
+      // check if character is only letters (a-z) (e.g, codes 65-90), or a dash (e.g, code 45), or a space (e.g., code 32):
+      if ((string.charCodeAt(i) >= 65 && string.charCodeAt(i) <= 90) || string.charCodeAt(i) === 45 || string.charCodeAt(i) === 32 ) {
+        // if first index, immedietely capitalize and add to acronym:
+        if (i === 0) {
+          acronym += string[i].toUpperCase();
         }
+        // if space is detected, analyze the letter next to it (with an index of i +1):
+        if (string.charCodeAt(i) === 32) {
+          // if the letter next to a space is NOT a space, IS a dash OR IS a letter a-z, add it to the acronym:
+          if ((string.charCodeAt(i + 1) !== 32) && ((string.charCodeAt(i + 1) === 45) || (string.charCodeAt(i + 1) >= 65 && string.charCodeAt(i) <= 90))) {
+            acronym += string[i + 1].toUpperCase();
+          } else {
+            continue; // if character next to space is rejected, continue
+          }
+        }
+
+      } else { // if character is not a letter, space or dash, continue
+        continue;
       }
     }
     console.log(acronym);
@@ -392,3 +394,21 @@ acronyms(undefined);
 
 acronyms("National Aeronautics Space Administration");
 // => NASA
+
+acronyms("Testing, With, Commas");
+// => TWC
+
+acronyms("Testing'  With'  Apostrophes'  And'  2'  Spaces'");
+// => TWAAS
+
+acronyms("123 456 Only 789 Letters 1011 And Dashes -- Matter");
+// => OLAD-M
+// (ignores all numbers but includes any dashes)
+
+acronyms("- Afternoons - Are - Best - Napping");
+// => -A-A-B-N
+// (ignores all numbers but includes any dashes)
+
+acronyms("Fun Times - Every Day");
+// => FT-ED
+// (ignores all numbers but includes any spaces)
