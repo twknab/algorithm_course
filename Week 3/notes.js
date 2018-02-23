@@ -1,20 +1,19 @@
-// Hints for this next round of exercises:
+// Next algorithm is due on Monday
 
-/*
-Use these methods:
+// Use Switch Case Statements for the most recent set of challenges upcoming.
 
-- Number()
-- parseInt()
+let fruits = "Orange";
 
-Turn a number like this:
-123
-
-Into this:
-100
-20
-3
-
-(there are methods to do this)
-
-Go back to the acronyms challenge and look at the ascii hint, see if you can check if things are lowercase letters and convert them to their ascii upper case values.
-*/
+switch (fruits) {
+  case "Banana":
+    console.log("Banana is good!");
+    break;
+  case "Orange":
+    text = console.log("I am not a fan of orange.");
+    break;
+  case "Apple":
+    text = console.log("How you like them apples?");
+    break;
+  default:
+    text = console.log("I have never heard of that fruit...");
+} 
