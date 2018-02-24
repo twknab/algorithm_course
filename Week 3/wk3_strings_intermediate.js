@@ -67,7 +67,6 @@ getStringDigits("0s1a3y5w7h9a2t4?6!8?0");
 // 3. Acronyms
 // Create a function that, given a string, returns the string’s acronym (first letters only, capitalized). 
 function acronyms(string) {
-  // Note: This seems uncomfortably like a long solution, but alas, this was the best my mind could achieve at this moment. Perhaps I can come back and look again or compare with other submissions, to find a better or cleaner strategy.
 
   // Input check / edge case check:
   if (typeof (string) !== "string") {
@@ -207,4 +206,7 @@ acronyms("Fun Times - Every Day");
   Notice how `acronyms("Fun Times - Every Day")` has a new line entered in the middle of the string. We are also using string literals (``). I was able to figure out how to detect the new line, but I wasn't able to figure out how to get the next starting letter. See commented out `isNewLineTab()` function: when I tried to use this, I'd get the next word ("Every"), rather than the first word in the break ("Times").
 
   Will want to come back and look at this a bit more but for time management going to move forwards for now.
+
+
+  AlSO: ADD in your own Upper() method! You can do it!
 */
