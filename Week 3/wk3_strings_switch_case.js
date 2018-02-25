@@ -194,6 +194,192 @@ bracesValid("abc(def{ghik[lmnopq]rs)tuv}wxyz");
 //*********               END OF WARNING               ********//
 //*************************************************************//
 
+// SCROLL PAST THE GLOBAL HELPER FUNCTIONS TO SEE THE ACTUAL ALGORITHMS
+// THESE WERE ONCE A PART OF SOLUTIONS BUT WERE PULLED OUT SINCE THEIR NEED IS REPEATED
+
+//*************************************************************//
+//*********          GLOBAL HELPER FUNCTIONS           ********//
+//*************************************************************//
+// These should probably be stored as an associated array instead
+function isValid(str) {
+  /*
+    Quick input check and minimum length check. Returns `true` if passes, otherwise returns `null`.
+
+    Parameters:
+    `str` - A string to be evaluated for validity of type and length.
+  */
+  if (typeof (str) !== "string" || str.length < 1) {
+    console.log("Only strings of at least 1 char allowed.");
+    return null;
+  } else {
+    return true;
+  }
+}
+
+function split(str) {
+  /*
+    Splits string characters into array, including all white space and punctuation. A new array is returned containing all characters as strings.
+
+    Parameters:
+    `str` - A string to be split into an array.
+  */
+  const characters = [];
+  for (let i = 0; i < str.length; i++) {
+    characters[i] = str[i];
+  }
+  return characters;
+}
+
+function slice(charArr, i, j) {
+  /*
+    Slices a string between 2 points and returns a sub-string. A new string is returned.
+
+    Parameters:
+    `charArr` = an array of characters from original string
+    `i` = beginning point of slice
+    `j` = ending point of slice
+  */
+  let slicedString = "";
+  for (let k = i; k <= j; k++) {
+    slicedString += charArr[k];
+  }
+  return slicedString;
+}
+
+function reverse(str) {
+  /*
+    Reverses a string and returns a new string as reversed.
+
+    Parameters:
+    - `str` = String to be reversed.
+  */
+  let reverseStr = "";
+  for (let i = str.length - 1; i >= 0; i--) {
+    reverseStr += str[i];
+  }
+  return reverseStr;
+}
+
+function lower(code) {
+  /*
+    Converts a code to it's lowercase dec equivalent.
+
+    Parameters:
+    - `code` = Uppercase dec code to convert to lowercase.
+  */
+  // Converts an uppercase letter to a lowercase letter:
+  return String.fromCharCode(code + 32);
+}
+
+function sanitize(str) {
+  let sanitized = "";
+  // Loop through string and only grab any letters A-Za-z.
+  // Any capital letters, we'll change to lowercase equivalents:
+  for (let i = 0; i < str.length; i++) {
+    let code = str.charCodeAt(i);
+    switch (true) {
+      case code >= 65 && code <= 90: // Captures A-Z
+        // Add to string lowercase equivalent value of character:
+        sanitized += lower(code);
+        // Note: `String.fromCharCode()` converts a code to a charcter. We add 32 to our code (`code + 32`) to get the lowercase `a-z` equivalent.  
+        break;
+      case code >= 97 && code <= 122: // Captures a-z
+        // Add lowercase letters to string:
+        sanitized += str[i];
+        break;
+      case code >= 48 && code <= 57: // Captures 0-9
+        // Add lowercase letters to string:
+        sanitized += str[i];
+        break;
+      default:
+        break;
+    }
+  }
+  return sanitized;
+}
+
+function findPalindromes(charArr) {
+  /*
+    Moves through an array seeing if any values match one another, if so, slices the string between those values to create a sub-string. This sub-string is then analyzed if it is a valid palidrome.
+
+    Parameters:
+    `charArr` = Characters array with each character as a value (including spaces and punctuation).
+  */
+  let found = [];
+  for (let i = 0; i < charArr.length; i++) {
+    // Move reverse through same array, checking for matches:
+    for (let j = charArr.length - 1; j >= i + 1; j--) {
+      // if characters match, slice between them and evaluate:
+      if (charArr[i] === charArr[j]) {
+        let slicedString = slice(charArr, i, j);
+
+        // Check if this slicedString is a palindrome:
+        if (isPalindrome(slicedString)) {
+          // If so, add to our array (which we'll analyze later):
+          found.push(slicedString);
+        }
+      }
+    }
+  }
+  return found;
+}
+
+function findGreatest(palindromesArr, str) {
+  /*
+    Find greatest lengthed palindrome and ensure it contains more than just punctuation.
+
+    Parameters:
+    `palindromesArr` = array of palindromes to be analyzed
+    `str` = original string to be evaluated in the event all palindromes are punctuation 
+  */
+  let greatestPalindrome = "";
+  // Loop through palindromes array comparing to `greatestPalindrome`:
+  for (let i = 0; i < palindromesArr.length; i++) {
+    // If a palindrome length is greater than `greatestPalindrome` length:
+    if (palindromesArr[i].length > greatestPalindrome.length) {
+      // If the palindrome contains letters or numbers (no punctuation only allowed), set it as the greatest: 
+      if (containsAlphaNum(palindromesArr[i])) {
+        greatestPalindrome = palindromesArr[i];
+      }
+      else {
+        // If no letters are found in the palindrome, set the greatest palindrome to the first letter of string (default in this scenario):
+        greatestPalindrome = str[0];
+      }
+    }
+  } // End looping through palindromesArray
+  return greatestPalindrome;
+}
+
+function containsAlphaNum(palindrome) {
+  /*
+    Returns true if letters or numbers are found, otherwise returns false.
+
+    Parameters:
+    `palindrome` = A palindrome to be evaluated to ensure it does not only contain punctuation.
+  */
+  let alphaNumFound = false;
+  // Loop through each character in the palindrome:
+  for (let j = 0; j < palindrome.length; j++) {
+    let code = palindrome.charCodeAt(j);
+    switch (true) {
+      case code >= 48 && code <= 57:// 0123456789
+        alphaNumFound = true;
+        break;
+      case code >= 65 && code <= 90:// A-Z
+        alphaNumFound = true;
+        break;
+      case code >= 97 && code <= 122:// a-z
+        alphaNumFound = true;
+        break;
+    }
+  } // End looping through individual palindrome characters
+  return alphaNumFound;
+}
+//*************************************************************//
+//*********       END  GLOBAL HELPER FUNCTIONS         ********//
+//*************************************************************//
+
+
 
 
 
@@ -203,29 +389,22 @@ bracesValid("abc(def{ghik[lmnopq]rs)tuv}wxyz");
 //*************************************************************//
 // 3. Is Palindrome: Given a string, return a boolean whether that string is a strict palindrome.
 // Our approach here reverses the string and compares it to the original, punctuation and all.
-// I didn't use any helper functions here.
+// We use helper functions here to make things cleaner.
 function isPalindrome(string) {
-  // Typical input and length checks:
-  if (typeof(string) !== "string" || string.length < 1) {
+  // If passess input checks:
+  if (isValid(string)) {
+    // Loop through string and reverse it:
+    let reversed = reverse(string);
+    // console.log(reversed);
+  
+    // Returns true if they equal, otherwise returns false:
+    // console.log(reversed === string);
+    return reversed === string;
+  } else {
     console.log("Only strings of at least 1 character accepted.");
     return null;
   }
 
-  // Loop through string and reverse it:
-  let reversed = "";
-  for (let i = string.length-1; i >= 0; i--) {
-    reversed += string[i];
-  }
-  // console.log(reversed);
-
-  // Then, see if it matches the original string exactly:
-  if (reversed === string) {
-    console.log(true);
-    return true;
-  } else {
-    console.log(false);
-    return false;
-  }
 }
 console.log("----- IS PALINDROME -----");
 isPalindrome("racecar");
@@ -258,91 +437,25 @@ isPalindrome("evil olive");
 // Once the string has been sanitized, it is reversed and compared to itself.
 // We use helper functions here to make things cleaner.
 function isPalindromeNoPunct(string) {
-  // Typical input and length checks:
-  if (typeof (string) !== "string" || string.length < 1) {
+  // If passes input checks:
+  if (isValid(string)) {
+    // Sanitize string:
+    let sanitized = sanitize(string);
+  
+    // Now that our string has been sanitized, let's reverse it:
+    let reversed = reverse(sanitized);
+  
+    // Uncomment below to see sanitized string and reversed:
+    // console.log(`SANITIZED: ${sanitized} REVERSED: ${reversed}`);
+    
+    // Returns true if they match otherwise returns false
+    console.log (reversed === sanitized);
+    return (reversed === sanitized);
+  } else {
     console.log("Only strings of at least 1 character accepted.");
     return null;
   }
 
-  // First, let's sanitize our string:
-  /* 
-    Strip out any white spaces (spaces, tabs, returns), capitalization and punctuation. We also won't grab any numbers
-  */
-  let sanitized = sanitize(string);
-
-  // Now that our string has been sanitized, let's reverse it:
-  let reversed = reverse(sanitized);
-
-  // Uncomment below to see sanitized string and reversed:
-  // console.log(`SANITIZED: ${sanitized} REVERSED: ${reversed}`);
-  
-  // Compare if reversed === sanitized, if so, it's a palindrome:
-  if (reversed === sanitized) {
-    console.log(true);
-    return true;
-  } else {
-    console.log(false);
-    return false;
-  }
-
-  /*
-  *
-  * Helper Functions
-  * 
-  */ 
-  function lower(code) {
-    /*
-      Converts a code to it's lowercase dec equivalent.
-
-      Parameters:
-      - `code` = Uppercase dec code to convert to lowercase.
-    */
-    // Converts an uppercase letter to a lowercase letter:
-    return String.fromCharCode(code + 32);
-  }
-  function reverse(str) {
-    /*
-      Reverses a string and returns a new string as reversed.
-
-      Parameters:
-      - `str` = String to be reversed.
-    */
-    let reverseStr = "";
-    for (let i = str.length - 1; i >= 0; i--) {
-      reverseStr += str[i];
-    }
-    return reverseStr;
-  }
-  function sanitize(str) {
-    /*
-      Sanitizes a string by grabbing all `a-z` letters, all `A-Z` (converts them to lowercase) and numbers (0-9). New string is returned without any punctuation or white spaces.
-
-      Parameters:
-      - `str` = String to be sanitized.
-    */
-    let sanitized = "";
-    // Loop through string and only grab any letters A-Za-z.
-    // Any capital letters, we'll change to lowercase equivalents:
-    for (let i = 0; i < str.length; i++) {
-      let code = str.charCodeAt(i);
-      switch (true) {
-        // Capture any uppercase A-Z codes and convert to lowercase:
-        case code >= 65 && code <= 90:
-          // Add to string lowercase equivalent value of character:
-          sanitized += lower(code);
-          // Note: `String.fromCharCode()` converts a code to a charcter. We add 32 to our code (`code + 32`) to get the lowercase `a-z` equivalent.  
-          break;
-        // Capture any lowercase a-z codes:
-        case code >= 97 && code <= 122:
-          // Add lowercase letters to string:
-          sanitized += str[i];
-          break;
-        default:
-          break;
-      }
-    }
-    return sanitized;
-  }
 
 }
 // Test
@@ -417,148 +530,6 @@ function longestPalindrome(string) {
   } 
   else { // if invalid input, return null
     return null;
-  }
-  
-
-
-
-  // *
-  // * Helper Functions:
-  // *
-  function isValid(str) {
-    /*
-      Quick input check and minimum length check. Returns `true` if passes, otherwise returns `null`.
-
-      Parameters:
-      `str` - A string to be evaluated for validity of type and length.
-    */
-    if (typeof (str) !== "string" || str.length < 1) {
-      console.log("Only strings of at least 1 char allowed.");
-      return null;
-    } else {
-      return true;
-    }
-  }
-  function split(str) {
-    /*
-      Splits string characters into array, including all white space and punctuation. A new array is returned containing all characters as strings.
-
-      Parameters:
-      `str` - A string to be split into an array.
-    */
-    const characters = [];
-    for (let i = 0; i < str.length; i++) {
-      characters[i] = str[i];
-    }
-    return characters;
-  }
-  
-  function isPalindrome(str) {
-    /*
-      Reverses a string and checks if matches original string. Returns true if palindrome, otherwise false.
-
-      Parameters:
-      `str` - A string to be evaluated if a palindrome.
-    */
-    let reverse = "";
-    for (let  i = str.length - 1; i >= 0; i--) {
-      reverse += str[i];
-    }
-    return (str === reverse);
-  }
-
-  function slice(charArr, i, j) {
-    /*
-      Slices a string between 2 points and returns a sub-string. A new string is returned.
-
-      Parameters:
-      `charArr` = an array of characters from original string
-      `i` = beginning point of slice
-      `j` = ending point of slice
-    */
-    let slicedString = "";
-    for (let k = i; k <= j; k++) {
-      slicedString += charArr[k];
-    }
-    return slicedString;
-  }
-
-  function findPalindromes(charArr) {
-    /*
-      Moves through an array seeing if any values match one another, if so, slices the string between those values to create a sub-string. This sub-string is then analyzed if it is a valid palidrome.
-
-      Parameters:
-      `charArr` = Characters array with each character as a value (including spaces and punctuation).
-    */
-    let found = [];
-    for (let i = 0; i < charArr.length; i++) {
-      // Move reverse through same array, checking for matches:
-      for (let j = charArr.length - 1; j >= i + 1; j--) {
-        // if characters match, slice between them and evaluate:
-        if (charArr[i] === charArr[j]) {
-          let slicedString = slice(charArr, i, j);
-
-          // Check if this slicedString is a palindrome:
-          if (isPalindrome(slicedString)) {
-            // If so, add to our array (which we'll analyze later):
-            found.push(slicedString);
-          }
-        }
-      }
-    }
-    return found;
-  }
-
-  function findGreatest(palindromesArr, str) {
-    /*
-      Find greatest lengthed palindrome and ensure it contains more than just punctuation.
-
-      Parameters:
-      `palindromesArr` = array of palindromes to be analyzed
-      `str` = original string to be evaluated in the event all palindromes are punctuation 
-    */
-    let greatestPalindrome = "";
-    // Loop through palindromes array comparing to `greatestPalindrome`:
-    for (let i = 0; i < palindromesArr.length; i++) {
-      // If a palindrome length is greater than `greatestPalindrome` length:
-      if (palindromesArr[i].length > greatestPalindrome.length) {
-        // If the palindrome contains letters or numbers (no punctuation only allowed), set it as the greatest: 
-        if (containsAlphaNum(palindromesArr[i])) {
-          greatestPalindrome = palindromesArr[i];
-        }
-        else {
-          // If no letters are found in the palindrome, set the greatest palindrome to the first letter of string (default in this scenario):
-          greatestPalindrome = str[0];
-        }
-      }
-    } // End looping through palindromesArray
-    return greatestPalindrome;
-  }
-
-  function containsAlphaNum(palindrome) {
-    /*
-      Returns true if letters or numbers are found, otherwise returns false.
-
-      Parameters:
-      `palindrome` = A palindrome to be evaluated to ensure it does not only contain punctuation.
-    */
-    let alphaNumFound = false;
-    // Loop through each character in the palindrome:
-    for (let j = 0; j < palindrome.length; j++) {
-      let code = palindrome.charCodeAt(j);
-      switch (true) {
-        case code >= 48 && code <= 57:// 0123456789
-          alphaNumFound = true;
-          break;
-        case code >= 65 && code <= 90:// A-Z
-          alphaNumFound = true;
-          break;
-        case code >= 97 && code <= 122:// a-z
-          alphaNumFound = true;
-          break;
-      }
-    } // End looping through individual palindrome characters
-    return alphaNumFound;
   }
 
 }
@@ -635,173 +606,6 @@ function longestPalindromeNoPunct(string) {
     return null;
   }
 
-
-
-
-  // *
-  // * Helper Functions:
-  // *
-  function sanitize(str) {
-    let sanitized = "";
-    // Loop through string and only grab any letters A-Za-z.
-    // Any capital letters, we'll change to lowercase equivalents:
-    for (let i = 0; i < str.length; i++) {
-      let code = str.charCodeAt(i);
-      switch (true) {
-        case code >= 65 && code <= 90: // Captures A-Z
-          // Add to string lowercase equivalent value of character:
-          sanitized += (String.fromCharCode(code + 32));
-          // Note: `String.fromCharCode()` converts a code to a charcter. We add 32 to our code (`code + 32`) to get the lowercase `a-z` equivalent.  
-          break;
-        case code >= 97 && code <= 122: // Captures a-z
-          // Add lowercase letters to string:
-          sanitized += str[i];
-          break;
-        case code >= 48 && code <= 57: // Captures 0-9
-          // Add lowercase letters to string:
-          sanitized += str[i];
-          break;
-        default:
-          break;
-      }
-    }
-    return sanitized;
-  }
-  function isValid(str) {
-    /*
-      Quick input check and minimum length check. Returns `true` if passes, otherwise returns `null`.
-
-      Parameters:
-      `str` - A string to be evaluated for validity of type and length.
-    */
-    if (typeof (str) !== "string" || str.length < 1) {
-      console.log("Only strings of at least 1 char allowed.");
-      return null;
-    } else {
-      return true;
-    }
-  }
-  function split(sanitizedStr) {
-    /*
-      Splits string characters into array, including all white space and punctuation. A new array is returned containing all characters as strings.
-
-      Parameters:
-      `sanitizedStr` - A sanitized string to be split into an array.
-    */
-    const characters = [];
-    for (let i = 0; i < sanitizedStr.length; i++) {
-      characters[i] = sanitizedStr[i];
-    }
-    return characters;
-  }
-
-  function isPalindrome(str) {
-    /*
-      Reverses a string and checks if matches original string. Returns true if palindrome, otherwise false.
-
-      Parameters:
-      `str` - A string to be evaluated if a palindrome.
-    */
-    let reverse = "";
-    for (let i = str.length - 1; i >= 0; i--) {
-      reverse += str[i];
-    }
-    return (str === reverse);
-  }
-
-  function slice(charArr, i, j) {
-    /*
-      Slices a string between 2 points and returns a sub-string. A new string is returned.
-
-      Parameters:
-      `charArr` = an array of characters from original string
-      `i` = beginning point of slice
-      `j` = ending point of slice
-    */
-    let slicedString = "";
-    for (let k = i; k <= j; k++) {
-      slicedString += charArr[k];
-    }
-    return slicedString;
-  }
-
-  function findPalindromes(charArr) {
-    /*
-      Moves through an array seeing if any values match one another, if so, slices the string between those values to create a sub-string. This sub-string is then analyzed if it is a valid palidrome.
-
-      Parameters:
-      `charArr` = Characters array with each string character as a value (including spaces and punctuation).
-    */
-    let found = [];
-    for (let i = 0; i < charArr.length; i++) {
-      // Move reverse through same array, checking for matches:
-      for (let j = charArr.length - 1; j >= i + 1; j--) {
-        // if characters match, slice between them and evaluate:
-        if (charArr[i] === charArr[j]) {
-          let slicedString = slice(charArr, i, j);
-
-          // Check if this slicedString is a palindrome:
-          if (isPalindrome(slicedString)) {
-            // If so, add to our array (which we'll analyze later):
-            found.push(slicedString);
-          }
-        }
-      }
-    }
-    return found;
-  }
-
-  function findGreatest(palindromesArr, sanitizedStr) {
-    /*
-      Find greatest lengthed palindrome and ensure it contains more than just punctuation.
-
-      Parameters:
-      `palindromesArr` = array of palindromes to be analyzed
-      `sanitizedStr` = Sanitized string to be evaluated in the event all palindromes are punctuation 
-    */
-    let greatestPalindrome = "";
-    // Loop through palindromes comparing to `greatest`:
-    for (let i = 0; i < palindromesArr.length; i++) {
-      // If a palindrome length is greater than `greatestPalindrome` length:
-      if (palindromesArr[i].length > greatestPalindrome.length) {
-        // If the palindrome contains letters or numbers (no punctuation only allowed), set it as the greatest: 
-        if (containsAlphaNum(palindromesArr[i])) {
-          greatestPalindrome = palindromesArr[i];
-        }
-        else {
-          // If no letters are found in the palindrome, set the greatest palindrome to the first letter of string (default in this scenario):
-          greatestPalindrome = sanitizedStr[0];
-        }
-      }
-    } // End looping through palindromesArray
-    return greatestPalindrome;
-  }
-
-  function containsAlphaNum(palindrome) {
-    /*
-      Returns true if letters are found, otherwise returns false.
-
-      Parameters:
-      `palindrome` = A palindrome to be evaluated to ensure it does not only contain punctuation.
-    */
-    let alphaNumFound = false;
-    // Loop through each character in the palindrome:
-    for (let j = 0; j < palindrome.length; j++) {
-      let code = palindrome.charCodeAt(j);
-      switch (true) {
-        case code >= 48 && code <= 57:// 0123456789
-          alphaNumFound = true;
-          break;
-        case code >= 65 && code <= 90:// A-Z
-          alphaNumFound = true;
-          break;
-        case code >= 97 && code <= 122:// a-z
-          alphaNumFound = true;
-          break;
-      }
-    } // End looping through individual palindrome characters
-    return alphaNumFound;
-  }
 
 }
 console.log("----- LONGEST PALINDROME NO PUNCTUATION -----");
