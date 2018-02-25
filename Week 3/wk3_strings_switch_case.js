@@ -1,4 +1,4 @@
-// Week 3 - Switch/Case - Strings - Tim K
+// Week 3 - Strings, Switch/Case - Tim K
 
 //**********************************************************//
 //************           PARENS VALID            ***********//
@@ -203,6 +203,7 @@ bracesValid("abc(def{ghik[lmnopq]rs)tuv}wxyz");
 //*************************************************************//
 // 3. Is Palindrome: Given a string, return a boolean whether that string is a strict palindrome.
 // Our approach here reverses the string and compares it to the original, punctuation and all.
+// I didn't use any helper functions here.
 function isPalindrome(string) {
   // Typical input and length checks:
   if (typeof(string) !== "string" || string.length < 1) {
@@ -255,6 +256,7 @@ isPalindrome("evil olive");
 // Our approach here is to sanitize the string first, using charCodeAt() to grab all numbers and letters.
 // We catch any lowercase numbers and convert them to upper writing our own manual function.
 // Once the string has been sanitized, it is reversed and compared to itself.
+// We use helper functions here to make things cleaner.
 function isPalindromeNoPunct(string) {
   // Typical input and length checks:
   if (typeof (string) !== "string" || string.length < 1) {
@@ -272,7 +274,7 @@ function isPalindromeNoPunct(string) {
   let reversed = reverse(sanitized);
 
   // Uncomment below to see sanitized string and reversed:
-  console.log(`SANITIZED: ${sanitized} REVERSED: ${reversed}`);
+  // console.log(`SANITIZED: ${sanitized} REVERSED: ${reversed}`);
   
   // Compare if reversed === sanitized, if so, it's a palindrome:
   if (reversed === sanitized) {
@@ -290,10 +292,10 @@ function isPalindromeNoPunct(string) {
   */ 
   function lower(code) {
     /*
-      Converts a code to it's lowercase hex equivalent.
+      Converts a code to it's lowercase dec equivalent.
 
       Parameters:
-      - `code` = Uppercase HEX code to convert to lowercase.
+      - `code` = Uppercase dec code to convert to lowercase.
     */
     // Converts an uppercase letter to a lowercase letter:
     return String.fromCharCode(code + 32);
@@ -386,7 +388,7 @@ isPalindromeNoPunct("mammoth");
 // If a palindrome is made of only punctuaton (e.g, `...`), a default value of the first character in the array is returned.
 // The longest palindrome is returned. This includes ALL original whitespace, punctuation and capitaliztion.
 function longestPalindrome(string) {
-  // Note: This got really complicated, so I broke things up into little helper functions -- all still contained within the scope of this original function. There are a few circumstances where I probably didn't have to pass along global variables, but for the sake of modifying something unexpectedly, I passed the necessary variables into their respective functions.
+  // Note: This got really complicated, so I broke things up into little helper functions -- all still contained within the scope of this original function.
 
   // Runs `isValid()` function, if input type and minimum string length are correct, `true` is returned. Otherwise `null` is returned.
   if (isValid(string)) {
@@ -437,32 +439,32 @@ function longestPalindrome(string) {
       return true;
     }
   }
-  function split(string) {
+  function split(str) {
     /*
       Splits string characters into array, including all white space and punctuation. A new array is returned containing all characters as strings.
 
       Parameters:
-      `string` - A string to be split into an array.
+      `str` - A string to be split into an array.
     */
     const characters = [];
-    for (let i = 0; i < string.length; i++) {
-      characters[i] = string[i];
+    for (let i = 0; i < str.length; i++) {
+      characters[i] = str[i];
     }
     return characters;
   }
   
-  function isPalindrome(string) {
+  function isPalindrome(str) {
     /*
       Reverses a string and checks if matches original string. Returns true if palindrome, otherwise false.
 
       Parameters:
-      `string` - A string to be evaluated if a palindrome.
+      `str` - A string to be evaluated if a palindrome.
     */
     let reverse = "";
-    for (let  i = string.length - 1; i >= 0; i--) {
-      reverse += string[i];
+    for (let  i = str.length - 1; i >= 0; i--) {
+      reverse += str[i];
     }
-    return (string === reverse);
+    return (str === reverse);
   }
 
   function slice(charArr, i, j) {
@@ -512,8 +514,8 @@ function longestPalindrome(string) {
       Find greatest lengthed palindrome and ensure it contains more than just punctuation.
 
       Parameters:
-      `palindromesArr` = array of palidromes to be analyzed
-      `str` = original string to be evaluated in the event all palidromes are punctuation 
+      `palindromesArr` = array of palindromes to be analyzed
+      `str` = original string to be evaluated in the event all palindromes are punctuation 
     */
     let greatestPalindrome = "";
     // Loop through palindromes array comparing to `greatestPalindrome`:
@@ -529,7 +531,7 @@ function longestPalindrome(string) {
           greatestPalindrome = str[0];
         }
       }
-    } // End looping through palidromesArray
+    } // End looping through palindromesArray
     return greatestPalindrome;
   }
 
@@ -587,7 +589,7 @@ longestPalindrome("123 racecar 321");
 //*******     LONGEST PALINDROME (NO PUNCTUATION)     ******//
 //**********************************************************//
 // 4B. Longest Palindrome Phrase (NO Punctuation):
-// Our method here is somewhat similar to that above but we santize our string, similar to our 3B function.
+// Our method here is somewhat similar to that above but we santize our string, the same as we do above.
 // We again use a bunch of helper functions that we've created.
 // Examine the notes within each helper function to understand what we're doing.
 // In summary, we first check to make sure submitted string's type and length is correct.
@@ -596,11 +598,11 @@ longestPalindrome("123 racecar 321");
 // Then we examine this sanitized character array for palindromes, comparing each letter to the rest of the letters in the array.
 // If a letter match is found, we splice between these two points and examine it for being a palindrome.
 // If it's a palindrome, it gets added to an array.
-// This array is then examined for the longest-lengthed palindrome.
-// If a palindrome is made of only punctuaton (e.g, `...`), a default value of the first character in the array is returned.
-// The longest palindrome is returned. This includes ALL original whitespace, punctuation and capitaliztion.
+// When all palindromes are gathered, this array is examined for the longest-lengthed palindrome.
+// If a palindrome is made of only punctuaton (e.g, `...`or `!!!`), a default value of the first character in the string is returned.
+// Otherwise, the longest palindrome is returned. This includes ALL original whitespace, punctuation and capitaliztion.
 function longestPalindromeNoPunct(string) {
-  // Note: This got really complicated, so I broke things up into little helper functions -- all still contained within the scope of this original function. There are a few circumstances where I probably didn't have to pass along global variables, but for the sake of modifying something unexpectedly, I passed the necessary variables into their respective functions.
+  // Note: This got really complicated, so I broke things up into little helper functions -- all still contained within the scope of this original function.
 
   // Runs `isValid()` function, if input type and minimum string length are correct, `true` is returned. Otherwise `null` is returned.
   if (isValid(string)) {
@@ -614,7 +616,7 @@ function longestPalindromeNoPunct(string) {
     // Loop through string checking for palindromes:
     palindromes = findPalindromes(characters);
 
-    // If palindromes are found, examine to find greatest lengthed palidrome. And make sure any palindrome returned is not strictly punctuation :
+    // If palindromes are found, examine to find greatest lengthed palindrome. And make sure any palindrome returned is not strictly punctuation characters:
     if (palindromes.length > 0) {
 
       // Find greatest palindrome:
@@ -628,7 +630,6 @@ function longestPalindromeNoPunct(string) {
       console.log("No palindromes found.");
       return null;
     }
-
   }
   else { // if invalid input, return null
     return null;
@@ -694,18 +695,18 @@ function longestPalindromeNoPunct(string) {
     return characters;
   }
 
-  function isPalindrome(string) {
+  function isPalindrome(str) {
     /*
       Reverses a string and checks if matches original string. Returns true if palindrome, otherwise false.
 
       Parameters:
-      `string` - A string to be evaluated if a palindrome.
+      `str` - A string to be evaluated if a palindrome.
     */
     let reverse = "";
-    for (let i = string.length - 1; i >= 0; i--) {
-      reverse += string[i];
+    for (let i = str.length - 1; i >= 0; i--) {
+      reverse += str[i];
     }
-    return (string === reverse);
+    return (str === reverse);
   }
 
   function slice(charArr, i, j) {
@@ -755,16 +756,16 @@ function longestPalindromeNoPunct(string) {
       Find greatest lengthed palindrome and ensure it contains more than just punctuation.
 
       Parameters:
-      `palindromesArr` = array of palidromes to be analyzed
-      `sanitizedStr` = Sanitized string to be evaluated in the event all palidromes are punctuation 
+      `palindromesArr` = array of palindromes to be analyzed
+      `sanitizedStr` = Sanitized string to be evaluated in the event all palindromes are punctuation 
     */
     let greatestPalindrome = "";
     // Loop through palindromes comparing to `greatest`:
     for (let i = 0; i < palindromesArr.length; i++) {
       // If a palindrome length is greater than `greatestPalindrome` length:
       if (palindromesArr[i].length > greatestPalindrome.length) {
-        // If the palindrome contains letters (no punctuation only allowed), set it as the greatest: 
-        if (containsLetters(palindromesArr[i])) {
+        // If the palindrome contains letters or numbers (no punctuation only allowed), set it as the greatest: 
+        if (containsAlphaNum(palindromesArr[i])) {
           greatestPalindrome = palindromesArr[i];
         }
         else {
@@ -772,34 +773,34 @@ function longestPalindromeNoPunct(string) {
           greatestPalindrome = sanitizedStr[0];
         }
       }
-    } // End looping through palidromesArray
+    } // End looping through palindromesArray
     return greatestPalindrome;
   }
 
-  function containsLetters(palindrome) {
+  function containsAlphaNum(palindrome) {
     /*
       Returns true if letters are found, otherwise returns false.
 
       Parameters:
       `palindrome` = A palindrome to be evaluated to ensure it does not only contain punctuation.
     */
-    let lettersFound = false;
+    let alphaNumFound = false;
     // Loop through each character in the palindrome:
     for (let j = 0; j < palindrome.length; j++) {
       let code = palindrome.charCodeAt(j);
       switch (true) {
         case code >= 48 && code <= 57:// 0123456789
-          lettersFound = true;
+          alphaNumFound = true;
           break;
         case code >= 65 && code <= 90:// A-Z
-          lettersFound = true;
+          alphaNumFound = true;
           break;
         case code >= 97 && code <= 122:// a-z
-          lettersFound = true;
+          alphaNumFound = true;
           break;
       }
     } // End looping through individual palindrome characters
-    return lettersFound;
+    return alphaNumFound;
   }
 
 }
@@ -819,3 +820,6 @@ longestPalindromeNoPunct("A man, a plan, a canal: Panama");
 
 longestPalindromeNoPunct("123 racecar 321");
 // => 123racecar123
+
+longestPalindromeNoPunct("findingLions That ... ROOR!!!!");
+// => roor
