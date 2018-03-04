@@ -416,8 +416,29 @@ isPalindrome("evil olive");
 // => false
 // Note: This should return `true` in the flexible palindrome below.
 
+//*************************************************************//
+//*** IS PALINDROME PUNCTUATION OK -- CLEAN SIMPLE VERSIION ***//
+//*************************************************************//
+// Here is a WAY cleaner and simpler method, looping from outside of string to center, and comparing opposite letters. MUCH simpler than the LONG WINDED HORRIBLE CODE I have filled in for the other palindrome solution. The truth is, I solved it, but it's also overly-complicated and not elegant or simple -- which unfortunately is a good learning lesson. Here's a nice clean solution:
+function palindrome(string) {
+  // Loop through string until *Middle*:
+  for (var idx = 0; idx < (string.length - 1) / 2; idx++) {
+    // If character at index position matches opposite character in string (string[string.length-1 - idx]):
+    if (string[idx] !== string[(string.length - 1) - idx]) {
+      console.log(false);
+      return false;
+    }
+  }
+  console.log(true);
+  return true;
+}
 
-
+palindrome("e racecar e");
+// => true
+palindrome("amanaplanacanalpanama");
+// => true
+palindrome("cashew cheese");
+// => false
 
 
 
