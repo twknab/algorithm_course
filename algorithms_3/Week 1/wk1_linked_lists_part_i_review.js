@@ -1,4 +1,4 @@
-// Week 1 - Singly Linked Lists / Review - Tim K
+// Week 1 - Singly Linked Lists / Review, Part 1 - Tim K
 
 /*
 Note: In the last week of the last algorithms course, we went into singly linked lists. We're going to repeat some of the functions we covered last week, to iron down these concepts further, and then extend beyond them.

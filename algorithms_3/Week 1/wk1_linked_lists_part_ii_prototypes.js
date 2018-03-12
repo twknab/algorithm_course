@@ -1,3 +1,4 @@
+// Week 1 - Linked Lists, Part 2 - Prototypes - Tim K
 // In this version, we'll try using protoypes:
 
 class Node {

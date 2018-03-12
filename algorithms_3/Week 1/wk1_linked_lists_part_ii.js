@@ -1,3 +1,5 @@
+// Week 1 - Linked Lists, Part 2 - Tim K
+
 function Node(val) {
   this.val = val;
   this.next = null;
