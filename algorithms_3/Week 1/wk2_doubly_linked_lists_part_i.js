@@ -24,8 +24,8 @@ prependValue(list, 9, 4)
 Given: (1) <--> (2) <--> (3) <--> (4)
 Return: (1) <--> (2) <--> (3) <-->(9) <--> (4)
 */
-function prependVal(DList, newVal, existVal) {
-  let current = DList.head,
+function prependVal(dList, newVal, existVal) {
+  let current = dList.head,
     found = false,
     newNode = new DLNode(newVal),
     fPrev;
@@ -39,7 +39,7 @@ function prependVal(DList, newVal, existVal) {
       if (!current.prev) {
         current.prev = newNode;
         newNode.next = current;
-        DList.head = newNode;
+        dList.head = newNode;
       } else {
         fPrev = current.prev;
         fPrev.next = newNode;
@@ -58,7 +58,7 @@ function prependVal(DList, newVal, existVal) {
       // List is only one node long
       current.prev = newNode;
       newNode.next = current;
-      DList.head = newNode;
+      dList.head = newNode;
     } else {
       fPrev = current.prev;
       fPrev.next = newNode;
@@ -71,8 +71,8 @@ function prependVal(DList, newVal, existVal) {
   if (!found) { return null; }
 
   // Return new list
-  console.log(DList);
-  return DList;
+  console.log(dList);
+  return dList;
 }
 
 
@@ -116,10 +116,10 @@ Given: (1) <--> (2) <--> (3) <--> (4) , 2
 (last node being (4), return the node 2 positions before the last node, in this case the node (2))
 Return: (2)
 */
-function kthToLast(list, k) {
+function kthToLast(dList, k) {
   // note: this may not be the most efficient strategy
 
-  let current = list.head,
+  let current = dList.head,
     len = 1, // initiliaze length counter
     pos; // holds kth-to-end val position
 
@@ -148,7 +148,7 @@ function kthToLast(list, k) {
 
   // We loop again, but must:
   // Reset current for next looping:
-  current = list.head;
+  current = dList.head;
   // Reset the length counter:
   len = 1;
 
@@ -289,9 +289,72 @@ Return: true
 Given: (1) <--> (2) <--> (3) <--> (1)
 Return: false
 */
+function palindrome(dList) {
+  // This is probably not the best way to do it (esp w/ a very large linked list since I'm basically adding all node values to a string and then assessing it...but alas...must look into improvements/alternative ideas)
 
+  let current = dList.head,
+    string = "";
 
+  if (!current) { // if empty list
+    console.log("List is empty.");
+    return null;
+  }
 
+  while (current.next) {
+    string += current.val;
+    current = current.next;
+  }
+
+  // now on last node, add also to string:
+  string += current.val;
+
+  // Now that we have a string with all node values, let's loop comparing left and right sides to each other until we meet center. If they don't match, it's not a palindrome, if they do, it's a palindrome.
+
+  for (let idx = 0; idx < (string.length - 1) / 2; idx++) {
+    if (string[idx] !== string[(string.length - 1) - idx]) {
+      console.log(false);
+      return false;
+    }
+  }
+
+  console.log(true);
+  return true;
+}
+
+// Test
+console.log("$$$$$ PALINDROME  $$$$$$");
+palindrome(myList); // => false
+
+// Let's create a palindrome list and see if she works:
+let shldBePalindrome = new DList(),
+  palNode1 = new DLNode("r"),
+  palNode2 = new DLNode("a"),
+  palNode3 = new DLNode("c"),
+  palNode4 = new DLNode("e"),
+  palNode5 = new DLNode("c"),
+  palNode6 = new DLNode("a"),
+  palNode7 = new DLNode("r");
+
+  // Link em up (prob should have added this to my method but trying to fit the methodology shown in lecture etc)
+
+  palNode1.next = palNode2;
+  palNode2.next = palNode3;
+  palNode3.next = palNode4;
+  palNode4.next = palNode5;
+  palNode5.next = palNode6;
+  palNode6.next = palNode7;
+  palNode7.prev = palNode6;
+  palNode6.prev = palNode5;
+  palNode5.prev = palNode4;
+  palNode4.prev = palNode3;
+  palNode3.prev = palNode2;
+  palNode2.prev = palNode1;
+
+  shldBePalindrome.head = palNode1;
+  shldBePalindrome.tail = palNode7;
+
+  // Test it:
+  palindrome(shldBePalindrome); // => true
 
 
 
@@ -306,11 +369,59 @@ Given: (1) <--> (2) <--> (3) <--> (node (3) points back to the first node)
 Return: (3) (return the node, which starts the loop, in this case, node 3 is starting the loop because it points back to node1)
 */
 
+function loopStart(dList) {
+  let current = dList.head,
+    next;
 
+  if (!current) { // list is empty, send it back
+    console.log(dList);
+    return dList;
+  }
 
+  // Check to make sure head node doesn't have prev value:
+  if (current.prev) {
+    console.log(current); 
+    return current; // bad loop found, send back bad node
+  }
 
+  // Check if we only have one node (if it's setup properly, send back null)
+  if (!current.prev && !current.next) { //  means we only have one node & setup OK
+    console.log(null);
+    return null; // send back null as list passes
+  }
 
+  // Loop through nodes looking for any bad loops:
+  while (current.next) {
+    // If our current node's value does not equal the next node's previous val, we have bad relationship:
+    if (current !== current.next.prev) {
+      console.log(current);
+      return current; // bad node found
+    }
+    current = current.next; // increment
+  }
 
+  console.log(null);
+  return null; // if get to this point, list relationships are OK and passed
+}
+
+// Test loop function:
+let loopyList = new DList(),
+  loopNode1 = new DLNode(1),
+  loopNode2 = new DLNode(2),
+  loopNode3 = new DLNode(3);
+
+loopNode1.next = loopNode2;
+loopNode2.next = loopNode3;
+loopNode3.next = loopNode1; // bad node relationship should be caught
+// loopNode1.prev = loopNode2; // also bad node relationship
+loopNode2.prev = loopNode1;
+loopNode3.prev = loopNode2;
+
+loopyList.head = loopNode1;
+
+// Test:
+console.log("$$$$$ LOOP START $$$$$");
+loopStart(loopyList);
 
 /***********************/
 /***     REPAIR      ***/
