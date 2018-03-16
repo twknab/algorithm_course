@@ -22,15 +22,8 @@ function DList() {
 Repair
 Combine previous work with a function that fixes errors found by isValid and breaks loops.
 */
-/***********************/
-/***     REPAIR      ***/
-/***********************/
-/*
-Repair
-Combine previous work with a function that fixes errors found by isValid and breaks loops.
-*/
-function repair(dList) {
-  let current = dList.head,
+function repair(list) {
+  let current = list.head,
     prev;
 
   if (!current) { // check if empty
@@ -82,8 +75,8 @@ function repair(dList) {
       // return false;
     }
   }
-  console.log(dList);
-  return dList;
+  console.log(list);
+  return list;
 
 }
 
@@ -108,9 +101,11 @@ brokeNode3.next = brokeNode4; // bad association
 brokeNode4.next = brokeNode5;
 brokeNode4.prev = brokeNode2; // bad association
 brokeNode5.prev = brokeNode4;
-brokenList.head = brokeNode1;
 
-repair(brokenList); // => 1 -> 2 -> 3 -> 4 -> 5
+brokenList.head = brokeNode1;
+brokenList.tail = brokeNode5;
+
+brokenList = repair(brokenList); // => 1 -> 2 -> 3 -> 4 -> 5
 
 
 
@@ -124,8 +119,57 @@ repair(brokenList); // => 1 -> 2 -> 3 -> 4 -> 5
 Append Value
 Given dList, new value, and existing value, insert new val into dList immediately after existing val.
 */
+function append(list, value, existingValue) {
+  let current = list.head, // grab list head
+    newNode = new DLNode(value), // make new node
+    found = false, // found is false
+    oldNext; // create var to use later
 
+  if (!current) {
+    console.log("List is empty.");
+    return null;
+  }
 
+  while (current.next) {
+    if (current.val === existingValue) {
+      found = true;
+      oldNext = current.next;
+      current.next = newNode;
+      newNode.prev = current;
+      newNode.next = oldNext;
+    }
+    current = current.next; // increment
+  }
+
+  // check last node:
+  if (current.val === existingValue) {
+    found = true;
+    current.next = newNode;
+    newNode.prev = current;
+    list.tail = newNode;
+    // this is all we have to do as last node and new node both have null for next value
+  }
+
+  // if existing value never found, send null and say so
+  if (!found) {
+    console.log("Existing value is not contained in list.");
+    return null;
+  } else { // otherwise return the list
+    console.log(list);
+    return list;
+  }
+
+}
+
+// Test our function by appending something to the list:
+// Let's test our function using the same list we've used before:
+console.log("$$$$$ APPEND $$$$$");
+
+// Let's create a junk list with some bad values and see if it catches:
+append(brokenList, 1.5, 1); // 1->1.5->2->3->4->5
+append(brokenList, 0, 1); // 1->0->1.5->2->3->4->5
+append(brokenList, 6, 5); // 1->0->1.5->2->3->4->5->6
+append(brokenList, 6, 15); // => null
 
 
 
@@ -138,6 +182,28 @@ Given dList, new value, and existing value, insert new val into dList immediatel
 Delete Middle Node
 Given a node in the middle of a dList, remove it.
 */
+function deleteMiddle(middleNode) {
+  let mNext, // holds middle's next node
+    mPrev; // holds middle's prev node
+  
+  if (!middleNode) {
+    console.log("Must supply a valid node.");
+    return null;
+  }
+
+  // link up our nodes excluding supplied middle node:
+  mNext = middleNode.next;
+  mPrev = middleNode.prev;
+
+  mPrev.next = mNext;
+  mNext.prev = mPrev;
+
+  // show node relationships now that middle is removed:
+  console.log(mPrev);
+  return mPrev;
+}
+console.log("$$$$$ DELETE MIDDLE $$$$$");
+deleteMiddle(brokeNode3);
 
 
 
@@ -152,8 +218,58 @@ Given a node in the middle of a dList, remove it.
 Reverse
 Create function to reverse nodes in a dList.
 */
+function reverse(list) {
+  let revList = new DList(),
+    current = list.tail,
+    formerNext,
+    formerPrev;
 
+  if (!current || !list.head) {
+    console.log("List must have a valid head and tail.");
+    return null;
+  }
 
+  // Loop backwards
+  while (current.prev) {
+    if (!revList.head) {
+      // set as head:
+      revList.head = current;
+    }
+
+    // Capture former next value
+    formerNext = current.next;
+    // Set next value to former prev
+    current.next = current.prev;
+
+    // Capture former prev value
+    formerPrev = current.prev;
+    // Set prev value to former next
+    current.prev = formerNext;
+
+    // Increment counter to last node (moving backwards)
+    current = formerPrev;
+  }
+
+  // Now on last node:
+  // Store former next value
+  formerNext = current.next;
+  // Set next to null (this is last node)
+  current.next = null;
+  // Set previous value to former next
+  current.prev = formerNext;
+  // Set former next's next value to current node
+  formerNext.next = current;
+  // Set list tail to be current node
+  revList.tail = current;
+  // Clear head prev value
+  revList.head.prev = null;
+
+  // Return reversed list
+  console.log(revList);
+  return revList;
+}
+console.log("$$$$$ REVERSE $$$$$");
+reverse(brokenList);
 
 
 
