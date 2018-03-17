@@ -282,7 +282,50 @@ reverse(brokenList);
 Partition
 Given dList and partition value, perform a simple partition (no need to return the pivot index).
 */
+function partition(list, value) {
+  let current = list.head;
 
+  while (current.next) {
+    if (current.val === value) {
+      current.prev = null; // set prev to null
+      list.head = current;
+      console.log(list);
+      return list;
+    }
+    current = current.next;
+  }
+  // on last node:
+  if (current.val === value) {
+    current.prev = null; // set prev to null
+    list.head = current;
+    console.log(list);
+    return list;
+  }
+
+  console.log("Value not found in list");
+  return null;
+}
+console.log("$$$$$ PARTITION $$$$$");
+partListTest = new DList();
+pNode1 = new DLNode(1);
+pNode2 = new DLNode(2);
+pNode3 = new DLNode(3);
+pNode4 = new DLNode(4);
+pNode5 = new DLNode(5);
+
+pNode1.next = pNode2;
+pNode2.next = pNode3;
+pNode2.prev = pNode1;
+pNode3.next = pNode4;
+pNode3.prev = pNode2;
+pNode4.next = pNode5;
+pNode4.prev = pNode3;
+pNode5.prev = pNode4;
+
+partListTest.head = pNode1;
+partListTest.tail = pNode5;
+
+partition(partListTest, 3);
 
 
 
@@ -296,3 +339,73 @@ Given dList and partition value, perform a simple partition (no need to return t
 Break Loop
 Given dList that may contain a loop, break the loop while retaining original node order.
 */
+function breakLoop(list) {
+  let current = list.head,
+    previous;
+
+  if (!current) {
+    console.log("List is empty.");
+    return null;
+  }
+
+  if (list.tail.next) { // tail should never have next property, clear it if detected
+    list.tail.next = null;
+  }
+
+  while (current.next) {
+    if (!previous) { // this is the head node
+      if (current.prev) { // if prev value set (it shouldnt be), set to null
+        current.prev = null;
+      }
+    } else {
+      if (previous !== current.prev) { // prev value bad loop found
+        current.prev = previous;
+      }
+    }
+    previous = current;
+    current = current.next;
+  }
+
+
+  // Now on last node:
+  if (current.next) { // if next is found, bad loop, set to null
+    current.next = null; // last node shouldn't have next
+  }
+  if (previous) {
+    if (previous !== current.prev) { // prev value bad loop found
+      current.prev = previous;
+    }
+  } else { // if not previous, our list is only one node long
+    if (current.prev) { // if prev value set, set to null (1 node long should have no prev)
+      current.prev = null; 
+    }
+  }
+  
+  list.tail = current;
+
+  console.log(list);
+  return list;
+}
+console.log("$$$$$ BREAK LOOP $$$$$");
+bLoopTest = new DList();
+bNode1 = new DLNode(1);
+bNode2 = new DLNode(2);
+bNode3 = new DLNode(3);
+bNode4 = new DLNode(4);
+bNode5 = new DLNode(5);
+
+bNode1.next = bNode2;
+bNode1.prev = bNode5;
+bNode2.next = bNode3;
+bNode2.prev = bNode1;
+bNode3.next = bNode4;
+bNode3.prev = bNode2;
+bNode4.next = bNode5;
+bNode4.prev = bNode3;
+bNode5.prev = bNode4;
+bNode5.next = bNode1;
+
+bLoopTest.head = bNode1;
+bLoopTest.tail = bNode5;
+
+breakLoop(bLoopTest);
