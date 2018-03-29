@@ -34,6 +34,48 @@ Our canvas2D becomes...
 
 =========================*/
 
+function floodFill(canvas, startXY, newColor, oldColor) {
+  let x = startXY[0],
+    y = startXY[0];
+  
+  oldColor = canvas[y][x];
+
+  if (!oldColor) {
+    oldColor = canvas[y][x];
+  }
+  canvas[y][x] = newColor;
+
+  if (canvas[y][x] === oldColor) {
+    canvas[y][x] = newColor;
+  }
+
+  canvas[y][x] = newColor;
+
+  if (y-1 >= 0 && y-1 < canvas.length) {
+    floodFill(canvas, [x, y - 1], newColor, oldColor); // up
+  }
+  if (y+1 >= 0 && y+1 < canvas.length) {
+    floodFill(canvas, [x, y + 1], newColor, oldColor); // down
+  }
+  if (x+1 >= 0 && x+1 < canvas.length) {
+    floodFill(canvas, [x + 1, y], newColor, oldColor); // right
+  }
+  if (x-1 >= 0 && x-1 < canvas.length) {
+    floodFill(canvas, [x - 1, y], newColor, oldColor); // left
+  }
+}
+
+let canvas = [
+  [3, 2, 3, 4, 3],
+  [2, 3, 3, 4, 0],
+  [7, 3, 3, 4, 1],
+  [6, 5, 3, 4, 1],
+  [1, 2, 3, 3, 3]
+];
+
+
+
+
 
 
 /*=========================
