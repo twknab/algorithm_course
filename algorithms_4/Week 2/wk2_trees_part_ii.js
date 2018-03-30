@@ -83,7 +83,14 @@ function BST() {
     }
   };
   this.removeVal = function (val) {
-    // do stuff
+    let current = this.root;
+    if (!current) {
+      return false;
+    } else {
+      if (current.val === val) {
+        
+      }
+    }
   };
   this.isEmpty = function () {
     let current = this.root;
