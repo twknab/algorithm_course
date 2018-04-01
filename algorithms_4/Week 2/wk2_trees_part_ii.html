@@ -1,4 +1,12 @@
-function BTNode(value) {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+  function BTNode(value) {
   this.val = value;
   this.left = null;
   this.right = null;
@@ -82,7 +90,7 @@ function BST() {
       }
     }
   };
-  this.remove = function (val, current = this.root) {
+  this.remove = function (val, current=this.root) {
     if (this.isEmpty()) {
       return false;
     } else {
@@ -93,6 +101,14 @@ function BST() {
       } else {
         return false;
       }
+    }
+  };
+  this.findMin = function (node=this.root) {
+    if (!this.isEmpty()) {
+      while (node.left) {
+        node = node.left;
+      }
+      return node.value;
     }
   };
   this.isEmpty = function () {
@@ -132,34 +148,12 @@ console.log("======== IS EMPTY ========");
 console.log(myList.isEmpty());
 
 console.log("======== REMOVE ========");
-// console.log(myList.isEmpty());
+console.log(myList.remove(1));
+console.log(myList);
 
-
-
-
-// this.traverse = function () {
-//   if (this.root) {
-//     recurse(this.root);
-//   }
-
-//   function recurse(node) {
-//     if (!node) {
-//       return;
-//     }
-//     // console.log("Current Node Value:", node.val);
-//     if (node.left) {
-//       // console.log("Checking LEFT", node.left)
-//       recurse(node.left);
-//       // console.log("LEFT DONE")
-//     }
-
-//     if (node.right) {
-//       // console.log("Checking RIGHT", node.right)
-//       recurse(node.right);
-//       // console.log("RIGHT DONE")
-//     }
-
-//     console.log(node.val)
-
-//   }
-// }
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
